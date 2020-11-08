@@ -34,7 +34,7 @@ exports.userAdd = async(req,res)=>{
 exports.userUpdate = async(req,res)=>{
     try{
         const body = req.body;
-        const _id = req.params.id;
+        const _id = req.params._id;
         const userUpdate = {
             u_name : body.u_name,
             u_email : body.u_email
@@ -51,3 +51,18 @@ exports.userUpdate = async(req,res)=>{
         })
     }
 }
+
+exports.userDelete = async(req,res)=>{
+    try{
+        const _id = req.params._id;
+        await User.findByIdAndDelete(_id);
+        res.status(200).json({
+            message : "User Deleted !"
+        })
+    } catch(err){
+        res.status(500).json({
+            error : err
+        })
+    }
+}
+

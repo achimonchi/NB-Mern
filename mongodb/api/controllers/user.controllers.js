@@ -2,10 +2,13 @@ const mongoose = require('mongoose');
 const User = require('./../models/user.models');
 
 exports.userFindAll = async (req,res)=>{
-    const users = await User.find();
+    const limit = parseInt(req.query.limit) || 5;
+
+    const users = await User.find().limit(limit);
     res.status(200).json({
         count : users.length,
-        data : users
+        data : users,
+        limit : limit
     })
 }
 

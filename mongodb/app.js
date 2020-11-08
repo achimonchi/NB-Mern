@@ -17,7 +17,11 @@ const DB_PASSWORD = "12345";
 const CONNECTION_STRING = `mongodb+srv://${DB_USERNAME}:${DB_PASSWORD}@belajarmongodb.4epud.mongodb.net/${DB_NAME}?retryWrites=true&w=majority`;
 try{
     mongoose.connect(CONNECTION_STRING, 
-        {useUnifiedTopology:true, useNewUrlParser: true}
+        {
+            useUnifiedTopology:true, 
+            useNewUrlParser: true,
+            useFindAndModify: false
+        }
     );
     console.log('Success')
 } catch(err){

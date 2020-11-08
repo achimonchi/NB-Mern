@@ -30,3 +30,24 @@ exports.userAdd = async(req,res)=>{
 
     
 }
+
+exports.userUpdate = async(req,res)=>{
+    try{
+        const body = req.body;
+        const _id = req.params.id;
+        const userUpdate = {
+            u_name : body.u_name,
+            u_email : body.u_email
+        };
+
+        await User.findByIdAndUpdate(_id, userUpdate);
+        res.status(200).json({
+            message : "Updated !",
+            data : userUpdate
+        });
+    } catch(err){
+        res.status(500).json({
+            error : err
+        })
+    }
+}

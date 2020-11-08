@@ -4,8 +4,23 @@ const User = require('./../models/user.models');
 exports.userFindAll = async (req,res)=>{
     const users = await User.find();
     res.status(200).json({
+        count : users.length,
         data : users
     })
+}
+
+exports.userFindByID = async(req,res)=>{
+    try{
+        const _id = req.params._id;
+        const user = await User.findById(_id);
+        res.status(200).json({
+            data:user
+        })
+    } catch(err){
+        res.status(500).json({
+            error : err
+        })
+    }
 }
 
 exports.userAdd = async(req,res)=>{

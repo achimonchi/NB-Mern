@@ -16,7 +16,9 @@ const DB_USERNAME = "reyhanjovie";
 const DB_PASSWORD = "12345";
 const CONNECTION_STRING = `mongodb+srv://${DB_USERNAME}:${DB_PASSWORD}@belajarmongodb.4epud.mongodb.net/${DB_NAME}?retryWrites=true&w=majority`;
 try{
-    mongoose.connect(CONNECTION_STRING, {useUnifiedTopology:true, useNewUrlParser: true});
+    mongoose.connect(CONNECTION_STRING, 
+        {useUnifiedTopology:true, useNewUrlParser: true}
+    );
     console.log('Success')
 } catch(err){
     console.error(err)

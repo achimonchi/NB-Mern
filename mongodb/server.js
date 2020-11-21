@@ -9,4 +9,4 @@ const createServer = http.createServer(app);
 createServer.listen(_port, (err)=>{
     if(err) throw err;
     console.log(`Server running at port ${_port}`);
-})
+});

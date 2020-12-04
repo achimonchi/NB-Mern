@@ -19,21 +19,24 @@ exports.findProducts = async(req,res) =>{
 exports.findProductByCategory = async(req,res) =>{
     try {
         const products = await Product.find();
-        const category = "Nasi";
-        const productFilter = [];
+        const category = req.params.category;
+        let productFilter = [];
         products.map((product)=>{
             let pro = [];
             product.p_categories.map((cat)=>{
-                if(cat == category){
+                if(cat.toLowerCase() === category.toLowerCase()){
                     console.log(cat)
                     pro.push(product)
                 }
+                console.log({cat, category})
             });
             console.log(pro)
-            productFilter= [...productFilter, pro];
+            productFilter= [...productFilter, ...pro];
         });
         res.status(200).json(productFilter)
     } catch (error) {
+        console.log(error)
+        res.status(500).json({error:error})
         
     }
 }

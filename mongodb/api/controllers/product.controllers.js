@@ -18,23 +18,25 @@ exports.findProducts = async(req,res) =>{
 
 exports.findProductByCategory = async(req,res) =>{
     try {
-        const products = await Product.find();
-        const category = req.params.category;
+        
+        const category = new RegExp(req.params.category, 'i');
         let productFilter = [];
-        productFilter = await Product.find({"p_categories" : category.toLowerCase()});
-        // products.map((product)=>{
-        //     let pro = [];
-        //     product.p_categories.map((cat)=>{
-        //         if(cat.toLowerCase() === category.toLowerCase()){
-        //             console.log(cat)
-        //             pro.push(product)
-        //         }
-        //         console.log({cat, category})
-        //     });
-        //     console.log(pro)
-        //     productFilter= [...productFilter, ...pro];
-        // });
-        res.status(200).json(productFilter)
+        productFilter = await Product.find({"p_categories" : category});
+        let data = {
+            status : 200
+        }
+        if(productFilter.length <= 0){
+            data = {
+                status : 404,
+                error : "Data not found in this resource !"
+            }
+        } else {
+            data = {
+                ...data,
+                data : productFilter
+            }
+        }
+        res.status(data.status).json(data)
     } catch (error) {
         console.log(error)
         res.status(500).json({error:error})

@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const Product = require('./../models/Product.models');
+const Product = require('./../models/product.models');
 
 exports.findProducts = async(req,res) =>{
     try {
@@ -21,18 +21,19 @@ exports.findProductByCategory = async(req,res) =>{
         const products = await Product.find();
         const category = req.params.category;
         let productFilter = [];
-        products.map((product)=>{
-            let pro = [];
-            product.p_categories.map((cat)=>{
-                if(cat.toLowerCase() === category.toLowerCase()){
-                    console.log(cat)
-                    pro.push(product)
-                }
-                console.log({cat, category})
-            });
-            console.log(pro)
-            productFilter= [...productFilter, ...pro];
-        });
+        productFilter = await Product.find({"p_categories" : category.toLowerCase()});
+        // products.map((product)=>{
+        //     let pro = [];
+        //     product.p_categories.map((cat)=>{
+        //         if(cat.toLowerCase() === category.toLowerCase()){
+        //             console.log(cat)
+        //             pro.push(product)
+        //         }
+        //         console.log({cat, category})
+        //     });
+        //     console.log(pro)
+        //     productFilter= [...productFilter, ...pro];
+        // });
         res.status(200).json(productFilter)
     } catch (error) {
         console.log(error)

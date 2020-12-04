@@ -10,6 +10,10 @@ const productSchema = mongoose.Schema({
     p_stock : {
         type : Number,
         require : true
+    },
+    p_price : {
+        type : Number,
+        require : true
     }
 })
 

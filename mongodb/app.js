@@ -7,6 +7,7 @@ const
 // define routes
 const
     userRoutes = require('./api/routes/user.routes'),
+    transactionRoutes = require('./api/routes/transaction.routes'),
     productRoutes = require('./api/routes/product.routes');
 
 const app = express();
@@ -36,6 +37,7 @@ app.use(bodyParser.json())
 // menggunakan routes
 app.use('/users', userRoutes);
 app.use('/products', productRoutes);
+app.use('/transactions', transactionRoutes);
 
 
 module.exports = app;
